@@ -1,7 +1,9 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'  
+import { connect } from 'react-redux';
+import { startLogout } from '../actions/auth'
 
-const Header = () => (
+const Header = ({ startLogout }) => (
     <header>
       <h1>Expensify</h1>
   
@@ -10,7 +12,13 @@ const Header = () => (
       <NavLink to="/create" activeClassName="is-active">Create expense</NavLink>
     
       <NavLink to="/help" activeClassName="is-active">Get help</NavLink>
+
+      <button onClick={startLogout}>Logout</button>
     </header>
   );
 
-  export default Header;
+  const mapDispatchToProps = (dispatch) => ({
+    startLogout: () => dispatch(startLogout())
+  });
+
+  export default connect(undefined, mapDispatchToProps)(Header);
